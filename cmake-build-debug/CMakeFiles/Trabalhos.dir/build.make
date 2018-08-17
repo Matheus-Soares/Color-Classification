@@ -43,10 +43,10 @@ RM = /home/matheus/Documentos/clion-2018.2/bin/cmake/linux/bin/cmake -E remove -
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = "/media/matheus/Dados/UFSC/Matérias/8° Semestre/Processamento de Imagens e Visão Computacional/Exercícios/Trabalhos"
+CMAKE_SOURCE_DIR = "/media/matheus/Dados/UFSC/Matérias/8° Semestre/Processamento de Imagens e Visão Computacional/Trabalhos/Trabalho 1/Color-Classification"
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = "/media/matheus/Dados/UFSC/Matérias/8° Semestre/Processamento de Imagens e Visão Computacional/Exercícios/Trabalhos/cmake-build-debug"
+CMAKE_BINARY_DIR = "/media/matheus/Dados/UFSC/Matérias/8° Semestre/Processamento de Imagens e Visão Computacional/Trabalhos/Trabalho 1/Color-Classification/cmake-build-debug"
 
 # Include any dependencies generated for this target.
 include CMakeFiles/Trabalhos.dir/depend.make
@@ -59,16 +59,16 @@ include CMakeFiles/Trabalhos.dir/flags.make
 
 CMakeFiles/Trabalhos.dir/main.cpp.o: CMakeFiles/Trabalhos.dir/flags.make
 CMakeFiles/Trabalhos.dir/main.cpp.o: ../main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/media/matheus/Dados/UFSC/Matérias/8° Semestre/Processamento de Imagens e Visão Computacional/Exercícios/Trabalhos/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/Trabalhos.dir/main.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Trabalhos.dir/main.cpp.o -c "/media/matheus/Dados/UFSC/Matérias/8° Semestre/Processamento de Imagens e Visão Computacional/Exercícios/Trabalhos/main.cpp"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/media/matheus/Dados/UFSC/Matérias/8° Semestre/Processamento de Imagens e Visão Computacional/Trabalhos/Trabalho 1/Color-Classification/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/Trabalhos.dir/main.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Trabalhos.dir/main.cpp.o -c "/media/matheus/Dados/UFSC/Matérias/8° Semestre/Processamento de Imagens e Visão Computacional/Trabalhos/Trabalho 1/Color-Classification/main.cpp"
 
 CMakeFiles/Trabalhos.dir/main.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Trabalhos.dir/main.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/media/matheus/Dados/UFSC/Matérias/8° Semestre/Processamento de Imagens e Visão Computacional/Exercícios/Trabalhos/main.cpp" > CMakeFiles/Trabalhos.dir/main.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/media/matheus/Dados/UFSC/Matérias/8° Semestre/Processamento de Imagens e Visão Computacional/Trabalhos/Trabalho 1/Color-Classification/main.cpp" > CMakeFiles/Trabalhos.dir/main.cpp.i
 
 CMakeFiles/Trabalhos.dir/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Trabalhos.dir/main.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/media/matheus/Dados/UFSC/Matérias/8° Semestre/Processamento de Imagens e Visão Computacional/Exercícios/Trabalhos/main.cpp" -o CMakeFiles/Trabalhos.dir/main.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/media/matheus/Dados/UFSC/Matérias/8° Semestre/Processamento de Imagens e Visão Computacional/Trabalhos/Trabalho 1/Color-Classification/main.cpp" -o CMakeFiles/Trabalhos.dir/main.cpp.s
 
 # Object files for target Trabalhos
 Trabalhos_OBJECTS = \
@@ -79,8 +79,55 @@ Trabalhos_EXTERNAL_OBJECTS =
 
 Trabalhos: CMakeFiles/Trabalhos.dir/main.cpp.o
 Trabalhos: CMakeFiles/Trabalhos.dir/build.make
+Trabalhos: /usr/local/lib/libopencv_stitching.so.3.4.1
+Trabalhos: /usr/local/lib/libopencv_videostab.so.3.4.1
+Trabalhos: /usr/local/lib/libopencv_superres.so.3.4.1
+Trabalhos: /usr/local/lib/libopencv_surface_matching.so.3.4.1
+Trabalhos: /usr/local/lib/libopencv_xobjdetect.so.3.4.1
+Trabalhos: /usr/local/lib/libopencv_line_descriptor.so.3.4.1
+Trabalhos: /usr/local/lib/libopencv_img_hash.so.3.4.1
+Trabalhos: /usr/local/lib/libopencv_fuzzy.so.3.4.1
+Trabalhos: /usr/local/lib/libopencv_bioinspired.so.3.4.1
+Trabalhos: /usr/local/lib/libopencv_hdf.so.3.4.1
+Trabalhos: /usr/local/lib/libopencv_xfeatures2d.so.3.4.1
+Trabalhos: /usr/local/lib/libopencv_ccalib.so.3.4.1
+Trabalhos: /usr/local/lib/libopencv_freetype.so.3.4.1
+Trabalhos: /usr/local/lib/libopencv_structured_light.so.3.4.1
+Trabalhos: /usr/local/lib/libopencv_optflow.so.3.4.1
+Trabalhos: /usr/local/lib/libopencv_stereo.so.3.4.1
+Trabalhos: /usr/local/lib/libopencv_dpm.so.3.4.1
+Trabalhos: /usr/local/lib/libopencv_rgbd.so.3.4.1
+Trabalhos: /usr/local/lib/libopencv_xphoto.so.3.4.1
+Trabalhos: /usr/local/lib/libopencv_phase_unwrapping.so.3.4.1
+Trabalhos: /usr/local/lib/libopencv_dnn_objdetect.so.3.4.1
+Trabalhos: /usr/local/lib/libopencv_hfs.so.3.4.1
+Trabalhos: /usr/local/lib/libopencv_aruco.so.3.4.1
+Trabalhos: /usr/local/lib/libopencv_face.so.3.4.1
+Trabalhos: /usr/local/lib/libopencv_saliency.so.3.4.1
+Trabalhos: /usr/local/lib/libopencv_reg.so.3.4.1
+Trabalhos: /usr/local/lib/libopencv_bgsegm.so.3.4.1
+Trabalhos: /usr/local/lib/libopencv_shape.so.3.4.1
+Trabalhos: /usr/local/lib/libopencv_viz.so.3.4.1
+Trabalhos: /usr/local/lib/libopencv_ximgproc.so.3.4.1
+Trabalhos: /usr/local/lib/libopencv_objdetect.so.3.4.1
+Trabalhos: /usr/local/lib/libopencv_photo.so.3.4.1
+Trabalhos: /usr/local/lib/libopencv_tracking.so.3.4.1
+Trabalhos: /usr/local/lib/libopencv_plot.so.3.4.1
+Trabalhos: /usr/local/lib/libopencv_datasets.so.3.4.1
+Trabalhos: /usr/local/lib/libopencv_text.so.3.4.1
+Trabalhos: /usr/local/lib/libopencv_dnn.so.3.4.1
+Trabalhos: /usr/local/lib/libopencv_ml.so.3.4.1
+Trabalhos: /usr/local/lib/libopencv_video.so.3.4.1
+Trabalhos: /usr/local/lib/libopencv_calib3d.so.3.4.1
+Trabalhos: /usr/local/lib/libopencv_features2d.so.3.4.1
+Trabalhos: /usr/local/lib/libopencv_highgui.so.3.4.1
+Trabalhos: /usr/local/lib/libopencv_videoio.so.3.4.1
+Trabalhos: /usr/local/lib/libopencv_flann.so.3.4.1
+Trabalhos: /usr/local/lib/libopencv_imgcodecs.so.3.4.1
+Trabalhos: /usr/local/lib/libopencv_imgproc.so.3.4.1
+Trabalhos: /usr/local/lib/libopencv_core.so.3.4.1
 Trabalhos: CMakeFiles/Trabalhos.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir="/media/matheus/Dados/UFSC/Matérias/8° Semestre/Processamento de Imagens e Visão Computacional/Exercícios/Trabalhos/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable Trabalhos"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir="/media/matheus/Dados/UFSC/Matérias/8° Semestre/Processamento de Imagens e Visão Computacional/Trabalhos/Trabalho 1/Color-Classification/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable Trabalhos"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/Trabalhos.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -93,6 +140,6 @@ CMakeFiles/Trabalhos.dir/clean:
 .PHONY : CMakeFiles/Trabalhos.dir/clean
 
 CMakeFiles/Trabalhos.dir/depend:
-	cd "/media/matheus/Dados/UFSC/Matérias/8° Semestre/Processamento de Imagens e Visão Computacional/Exercícios/Trabalhos/cmake-build-debug" && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" "/media/matheus/Dados/UFSC/Matérias/8° Semestre/Processamento de Imagens e Visão Computacional/Exercícios/Trabalhos" "/media/matheus/Dados/UFSC/Matérias/8° Semestre/Processamento de Imagens e Visão Computacional/Exercícios/Trabalhos" "/media/matheus/Dados/UFSC/Matérias/8° Semestre/Processamento de Imagens e Visão Computacional/Exercícios/Trabalhos/cmake-build-debug" "/media/matheus/Dados/UFSC/Matérias/8° Semestre/Processamento de Imagens e Visão Computacional/Exercícios/Trabalhos/cmake-build-debug" "/media/matheus/Dados/UFSC/Matérias/8° Semestre/Processamento de Imagens e Visão Computacional/Exercícios/Trabalhos/cmake-build-debug/CMakeFiles/Trabalhos.dir/DependInfo.cmake" --color=$(COLOR)
+	cd "/media/matheus/Dados/UFSC/Matérias/8° Semestre/Processamento de Imagens e Visão Computacional/Trabalhos/Trabalho 1/Color-Classification/cmake-build-debug" && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" "/media/matheus/Dados/UFSC/Matérias/8° Semestre/Processamento de Imagens e Visão Computacional/Trabalhos/Trabalho 1/Color-Classification" "/media/matheus/Dados/UFSC/Matérias/8° Semestre/Processamento de Imagens e Visão Computacional/Trabalhos/Trabalho 1/Color-Classification" "/media/matheus/Dados/UFSC/Matérias/8° Semestre/Processamento de Imagens e Visão Computacional/Trabalhos/Trabalho 1/Color-Classification/cmake-build-debug" "/media/matheus/Dados/UFSC/Matérias/8° Semestre/Processamento de Imagens e Visão Computacional/Trabalhos/Trabalho 1/Color-Classification/cmake-build-debug" "/media/matheus/Dados/UFSC/Matérias/8° Semestre/Processamento de Imagens e Visão Computacional/Trabalhos/Trabalho 1/Color-Classification/cmake-build-debug/CMakeFiles/Trabalhos.dir/DependInfo.cmake" --color=$(COLOR)
 .PHONY : CMakeFiles/Trabalhos.dir/depend
 
