@@ -7,7 +7,6 @@ using namespace cv;
 
 char *window = (char*) "Original image";
 bool leftButtonDown = false;
-bool righButtonDown = false;
 int k;
 Point pt;
 Mat img;
@@ -131,16 +130,113 @@ void L2_norm(){
 void mahalanobis(){
 
     Mat imgMh;
+    Vec3b color, pixel;
+    Vec3b white(255, 255, 255);
+
+//    Mat A = Mat::zeros(3,3,CV_64F);
+//    Mat A_i;
+
+    double A[3][3] = {};
+    double A_i[3][3] = {};
+    double ident[3][3] = {};
+
+    double b_ = 0.0, g_ = 0.0, r_ = 0.0;
 
     img.copyTo(imgMh);
+    cout << "Select the points and press some key" << endl;
     waitKey(0);
-    while(!righButtonDown){
-        double size_a = points.size();
 
-        /// Mahalanobis code here
-
-        while(points.size() == size_a);
+    /// Mahalanobis code here
+    for (auto &point : points) {
+        color = imgMh.at<Vec3b>(Point(static_cast<int>(point.x), static_cast<int>(point.y)));
+        b_ += color.val[0];
+        g_ += color.val[1];
+        r_ += color.val[2];
     }
+
+    b_ /= points.size();
+    g_ /= points.size();
+    r_ /= points.size();
+
+    for(int i = 0; i < imgMh.rows; i ++){
+        for (int j = 0; j < imgMh.cols; j++) {
+            pixel = imgMh.at<Vec3b>(Point(j, i));
+
+            A[2][2] += (pixel[0] - b_)*(pixel[0] - b_);     // bb
+            A[1][1] += (pixel[1] - g_)*(pixel[1] - g_);     // gg
+            A[0][0] += (pixel[2] - r_)*(pixel[2] - r_);     // rr
+
+            A[1][2] += (pixel[1] - g_)*(pixel[0] - b_);     // gb
+            A[0][1] += (pixel[2] - r_)*(pixel[1] - g_);     // rg
+            A[0][2] += (pixel[2] - r_)*(pixel[0] - b_);     // rb
+
+        }
+    }
+
+    A[2][2] /= 1.0/((imgMh.rows*imgMh.cols)-1);
+    A[1][1] /= 1.0/((imgMh.rows*imgMh.cols)-1);
+    A[0][0] /= 1.0/((imgMh.rows*imgMh.cols)-1);
+
+    A[1][2] /= 1.0/((imgMh.rows*imgMh.cols)-1);
+    A[0][1] /= 1.0/((imgMh.rows*imgMh.cols)-1);
+    A[0][2] /= 1.0/((imgMh.rows*imgMh.cols)-1);
+
+    A[1][0] = A[0][1];    // gr
+    A[2][0] = A[0][2];    // br
+    A[2][1] = A[1][2];    // bg
+
+    cout << "Matriz A" << endl;
+    for(int i = 0; i < 3; i++){
+        for (int j = 0; j < 3; j++){
+            cout << A[i][j] << "  ";
+        }
+        cout << endl;
+    }
+    cout << endl << endl;
+
+
+    //Definindo a Matriz Identidade
+    for(int i = 0; i < 3; i++){
+        for(int j = 0; j < 3; j++){
+            if(i == j) ident[i][j] = 1;
+            else ident[i][j] = 0;
+        }
+    }
+
+    double pivo = 0, p = 0, m = 0;
+
+    for(int j = 0; j < 3; j++){
+
+        pivo = A[j][j];
+        p = pivo/pivo;
+
+        for(int k = j; k < 3; k++){
+            A[j][k] = A[j][k] / pivo;
+            ident[j][k] = ident[j][k]/ pivo;
+        }
+
+        for(int i = 0; i < 3; i++){
+            if(i != j){
+                m = A[i][j] / p;
+
+                for(int k = 0; k < 3; k++){
+                    A[i][k] = A[i][k] - (m * A[j][k]);
+                    ident[i][k] = ident[i][k] - (m * ident[j][k]);
+                }
+            }
+        }
+    }
+
+    cout << "Matriz A⁻1" << endl;
+    for(int i = 0; i < 3; i++){
+        for (int j = 0; j < 3; j++){
+            cout << ident[i][j] << "  ";
+        }
+        cout << endl;
+    }
+
+    waitKey(0);
+
 }
 
 void knn(){
@@ -238,8 +334,6 @@ static void mouseCallback(int event, int x, int y, int, void* img_){
     }
     else if(event == CV_EVENT_LBUTTONUP)
         leftButtonDown = false;
-
-    if(event == CV_EVENT_RBUTTONUP) righButtonDown = true;
 
     imshow(window, img);
 
