@@ -7,9 +7,11 @@ using namespace cv;
 
 char *window = (char*) "Original image";
 bool leftButtonDown = false;
+bool righButtonDown = false;
 int k;
 Point pt;
 Mat img;
+vector<Point2f> points;
 
 void menu();
 void L1_norm();
@@ -17,7 +19,7 @@ void L2_norm();
 void mahalanobis();
 void knn();
 void sel_methods();
-static void points(int event, int x, int y, int, void*);
+static void mouseCallback(int event, int x, int y, int, void*);
 
 
 int main(int argc, char *argv[]){
@@ -35,7 +37,7 @@ int main(int argc, char *argv[]){
     imshow(window, img);
 
     /// Set mouse callback
-    setMouseCallback(window, points, &img);
+    setMouseCallback(window, mouseCallback, &img);
 
     sel_methods();
 
@@ -128,6 +130,17 @@ void L2_norm(){
 
 void mahalanobis(){
 
+    Mat imgMh;
+
+    img.copyTo(imgMh);
+    waitKey(0);
+    while(!righButtonDown){
+        double size_a = points.size();
+
+        /// Mahalanobis code here
+
+        while(points.size() == size_a);
+    }
 }
 
 void knn(){
@@ -148,6 +161,12 @@ void knn(){
     while(waitKey() != 27){
 
         color = imgKnn.at<Vec3b>(Point(pt.x, pt.y));
+
+        while(color == white){
+            cout << "Select another point and press some key" << endl;
+            waitKey(0);
+            color = imgKnn.at<Vec3b>(Point(pt.x, pt.y));
+        }
 
         for(int i = 0; i < imgKnn.rows; i ++){
             for (int j = 0; j < imgKnn.cols; j++){
@@ -201,7 +220,7 @@ void sel_methods(){
 }
 
 
-static void points(int event, int x, int y, int, void* img_){
+static void mouseCallback(int event, int x, int y, int, void* img_){
     Vec3b color(255, 255, 255);
     Mat &img = *(Mat*) img_;
 
@@ -213,10 +232,14 @@ static void points(int event, int x, int y, int, void* img_){
 
     if (event == CV_EVENT_LBUTTONDOWN)
         leftButtonDown = true;
-    else if(event == CV_EVENT_MOUSEMOVE && leftButtonDown)
+    else if(event == CV_EVENT_MOUSEMOVE && leftButtonDown) {
         img.at<Vec3b>(Point(x, y)) = color;
+        points.emplace_back(x,y);
+    }
     else if(event == CV_EVENT_LBUTTONUP)
         leftButtonDown = false;
+
+    if(event == CV_EVENT_RBUTTONUP) righButtonDown = true;
 
     imshow(window, img);
 
