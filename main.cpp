@@ -60,9 +60,11 @@ void L1_norm(){
     int th;
     Vec3b color, pixel;
     Vec3b white(255, 255, 255);
+    Vec3b black(0, 0, 0);
+
     Mat imgL1;
 
-    th = 50;
+    th = 90;
 
     cout << "Select one point and press some key" << endl;
     waitKey(0);
@@ -71,23 +73,29 @@ void L1_norm(){
 
     color = imgL1.at<Vec3b>(Point(pt.x, pt.y));
 
+    Mat imgColor(100, 100, CV_8UC3, cv::Scalar(color.val[0], color.val[1], color.val[2]));
+    imshow("Color", imgColor);
+
     for(int i = 0; i < imgL1.rows; i ++){
         for (int j = 0; j < imgL1.cols; j++){
             pixel = imgL1.at<Vec3b>(Point(j, i));
-            if((color.val[0] + th > pixel.val[0]) && (color.val[0] - th < pixel.val[0])) {
-                if ((color.val[1] + th > pixel.val[1]) && (color.val[1] - th < pixel.val[1])) {
-                    if ((color.val[2] + th > pixel.val[2]) && (color.val[2] - th < pixel.val[2])) {
+            if((color.val[0] + th > pixel.val[0]) && (color.val[0] - th < pixel.val[0])){
+                if ((color.val[1] + th > pixel.val[1]) && (color.val[1] - th < pixel.val[1])){
+                    if ((color.val[2] + th > pixel.val[2]) && (color.val[2] - th < pixel.val[2])){
                         imgL1.at<Vec3b>(Point(j, i)) = white;
                     }
+                    else imgL1.at<Vec3b>(Point(j, i)) = black;
                 }
+                else imgL1.at<Vec3b>(Point(j, i)) = black;
             }
+            else imgL1.at<Vec3b>(Point(j, i)) = black;
         }
     }
 
     cout << "L1-norm image" << endl;
 
     //imwrite("L1-norm.jpg", imgL1);
-    namedWindow("L1-norm");
+    namedWindow("L1-norm", WINDOW_NORMAL);
     imshow("L1-norm", imgL1);
 }
 
@@ -95,9 +103,11 @@ void L2_norm(){
     int th;
     Vec3b color, pixel;
     Vec3b white(255, 255, 255);
+    Vec3b black(0, 0, 0);
+
     Mat imgL2;
 
-    th = 50;
+    th = 120;
 
     cout << "Select one point and press some key" << endl;
     waitKey(0);
@@ -107,38 +117,37 @@ void L2_norm(){
     color = imgL2.at<Vec3b>(Point(pt.x, pt.y));
 
     for(int i = 0; i < imgL2.rows; i ++){
-        for (int j = 0; j < imgL2.cols; j++){
+        for (int j = 0; j < imgL2.cols; j++) {
             pixel = imgL2.at<Vec3b>(Point(j, i));
 
-            float de =  (pixel.val[0] - color.val[0])*(pixel.val[0] - color.val[0]) +
-                        (pixel.val[1] - color.val[1])*(pixel.val[1] - color.val[1]) +
-                        (pixel.val[2] - color.val[2])*(pixel.val[2] - color.val[2]);
+            float de = (pixel.val[0] - color.val[0]) * (pixel.val[0] - color.val[0]) +
+                       (pixel.val[1] - color.val[1]) * (pixel.val[1] - color.val[1]) +
+                       (pixel.val[2] - color.val[2]) * (pixel.val[2] - color.val[2]);
 
-            if(sqrt(de) < th)
-                imgL2.at<Vec3b>(Point(j, i)) = white;
+            if(sqrt(de) < th) imgL2.at<Vec3b>(Point(j, i)) = white;
+            else imgL2.at<Vec3b>(Point(j, i)) = black;
+
         }
     }
 
     cout << "L2-norm image" << endl;
 
     //imwrite("L2-norm.jpg", imgL2);
-    namedWindow("L2-norm");
+    namedWindow("L2-norm", WINDOW_NORMAL);
     imshow("L2-norm", imgL2);
 
 }
 
-void mahalanobis(){
+void mahalanobis() {
 
     Mat imgMh;
     Vec3b color, pixel;
     Vec3b white(255, 255, 255);
+    Vec3b black(0, 0, 0);
+    double th = 3;
 
-//    Mat A = Mat::zeros(3,3,CV_64F);
-//    Mat A_i;
-
-    double A[3][3] = {};
-    double A_i[3][3] = {};
-    double ident[3][3] = {};
+    Mat MatA(3, 3, CV_64F);
+    Mat MatAInv(3, 3, CV_64F);
 
     double b_ = 0.0, g_ = 0.0, r_ = 0.0;
 
@@ -158,101 +167,79 @@ void mahalanobis(){
     g_ /= points.size();
     r_ /= points.size();
 
-    for(int i = 0; i < imgMh.rows; i ++){
+    for (auto &point : points) {
+        color = imgMh.at<Vec3b>(Point(static_cast<int>(point.x), static_cast<int>(point.y)));
+
+        MatA.at<double>(2, 2) += (color.val[0] - b_) * (color.val[0] - b_);     // bb
+        MatA.at<double>(1, 1) += (color.val[1] - g_) * (color.val[1] - g_);     // gg
+        MatA.at<double>(0, 0) += (color.val[2] - r_) * (color.val[2] - r_);     // rr
+
+        MatA.at<double>(1, 2) += (color.val[1] - g_) * (color.val[0] - b_);     // gb
+        MatA.at<double>(0, 1) += (color.val[2] - r_) * (color.val[1] - g_);     // rg
+        MatA.at<double>(0, 2) += (color.val[2] - r_) * (color.val[0] - b_);     // rb
+    }
+
+
+    MatA.at<double>(2, 2) /= (points.size() - 1);
+    MatA.at<double>(1, 1) /= (points.size() - 1);
+    MatA.at<double>(0, 0) /= (points.size() - 1);
+
+    MatA.at<double>(1, 2) /= (points.size() - 1);
+    MatA.at<double>(0, 1) /= (points.size() - 1);
+    MatA.at<double>(0, 2) /= (points.size() - 1);
+
+    MatA.at<double>(1, 0) = MatA.at<double>(0, 1);      // gr
+    MatA.at<double>(2, 0) = MatA.at<double>(0, 2);      // br
+    MatA.at<double>(2, 1) = MatA.at<double>(1, 2);      // bg
+
+    MatAInv = MatA.inv();
+
+    for (int i = 0; i < imgMh.rows; i++) {
         for (int j = 0; j < imgMh.cols; j++) {
             pixel = imgMh.at<Vec3b>(Point(j, i));
 
-            A[2][2] += (pixel[0] - b_)*(pixel[0] - b_);     // bb
-            A[1][1] += (pixel[1] - g_)*(pixel[1] - g_);     // gg
-            A[0][0] += (pixel[2] - r_)*(pixel[2] - r_);     // rr
+            double mt0 = (pixel.val[2] - r_) * MatAInv.at<double>(0, 0) +
+                         (pixel.val[1] - g_) * MatAInv.at<double>(1, 0) +
+                         (pixel.val[0] - b_) * MatAInv.at<double>(2, 0);
 
-            A[1][2] += (pixel[1] - g_)*(pixel[0] - b_);     // gb
-            A[0][1] += (pixel[2] - r_)*(pixel[1] - g_);     // rg
-            A[0][2] += (pixel[2] - r_)*(pixel[0] - b_);     // rb
+            double mt1 = (pixel.val[2] - r_) * MatAInv.at<double>(0, 1) +
+                         (pixel.val[1] - g_) * MatAInv.at<double>(1, 1) +
+                         (pixel.val[0] - b_) * MatAInv.at<double>(2, 1);
+
+            double mt2 = (pixel.val[2] - r_) * MatAInv.at<double>(0, 2) +
+                         (pixel.val[1] - g_) * MatAInv.at<double>(1, 2) +
+                         (pixel.val[0] - b_) * MatAInv.at<double>(2, 2);
+
+            double d = (mt0 * (pixel.val[2] - r_)) + (mt1 * (pixel.val[1] - g_)) + (mt2 * (pixel.val[0] - b_));
+
+            if (sqrt(d) < th)
+                imgMh.at<Vec3b>(Point(j, i)) = white;
+            else imgMh.at<Vec3b>(Point(j, i)) = black;
 
         }
     }
 
-    A[2][2] /= 1.0/((imgMh.rows*imgMh.cols)-1);
-    A[1][1] /= 1.0/((imgMh.rows*imgMh.cols)-1);
-    A[0][0] /= 1.0/((imgMh.rows*imgMh.cols)-1);
-
-    A[1][2] /= 1.0/((imgMh.rows*imgMh.cols)-1);
-    A[0][1] /= 1.0/((imgMh.rows*imgMh.cols)-1);
-    A[0][2] /= 1.0/((imgMh.rows*imgMh.cols)-1);
-
-    A[1][0] = A[0][1];    // gr
-    A[2][0] = A[0][2];    // br
-    A[2][1] = A[1][2];    // bg
-
-    cout << "Matriz A" << endl;
-    for(int i = 0; i < 3; i++){
-        for (int j = 0; j < 3; j++){
-            cout << A[i][j] << "  ";
-        }
-        cout << endl;
-    }
-    cout << endl << endl;
-
-
-    //Definindo a Matriz Identidade
-    for(int i = 0; i < 3; i++){
-        for(int j = 0; j < 3; j++){
-            if(i == j) ident[i][j] = 1;
-            else ident[i][j] = 0;
-        }
-    }
-
-    double pivo = 0, p = 0, m = 0;
-
-    for(int j = 0; j < 3; j++){
-
-        pivo = A[j][j];
-        p = pivo/pivo;
-
-        for(int k = j; k < 3; k++){
-            A[j][k] = A[j][k] / pivo;
-            ident[j][k] = ident[j][k]/ pivo;
-        }
-
-        for(int i = 0; i < 3; i++){
-            if(i != j){
-                m = A[i][j] / p;
-
-                for(int k = 0; k < 3; k++){
-                    A[i][k] = A[i][k] - (m * A[j][k]);
-                    ident[i][k] = ident[i][k] - (m * ident[j][k]);
-                }
-            }
-        }
-    }
-
-    cout << "Matriz A⁻1" << endl;
-    for(int i = 0; i < 3; i++){
-        for (int j = 0; j < 3; j++){
-            cout << ident[i][j] << "  ";
-        }
-        cout << endl;
-    }
+    namedWindow("Mahalanobis", WINDOW_NORMAL);
+    imshow("Mahalanobis", imgMh);
 
     waitKey(0);
-
 }
 
 void knn(){
     int th;
     Vec3b color, pixel;
     Vec3b white(255, 255, 255);
+    Vec3b black(0, 0, 0);
     Mat imgKnn;
 
-    th = 50;
+    th = 75;
 
     img.copyTo(imgKnn);
 
     cout << "Select one point and press some key" << endl;
-    cout << "Press ESC to stop" << endl;
+    cout << "Press ESC to stop and return to menu" << endl;
 
-    namedWindow("K-nearest neighbors");
+    namedWindow("K-nearest neighbors", WINDOW_NORMAL);
 
     while(waitKey() != 27){
 
@@ -299,6 +286,7 @@ void sel_methods(){
                 L2_norm();
                 break;
             case 51:        /// Key = 3
+                points.clear();
                 mahalanobis();
                 break;
             case 52:        /// Key = 4
@@ -317,7 +305,7 @@ void sel_methods(){
 
 
 static void mouseCallback(int event, int x, int y, int, void* img_){
-    Vec3b color(255, 255, 255);
+    Vec3b white(0, 255, 0);
     Mat &img = *(Mat*) img_;
 
     if(event == CV_EVENT_LBUTTONDOWN && (k == 49 || k == 50 || k == 52)){
@@ -328,8 +316,8 @@ static void mouseCallback(int event, int x, int y, int, void* img_){
 
     if (event == CV_EVENT_LBUTTONDOWN)
         leftButtonDown = true;
-    else if(event == CV_EVENT_MOUSEMOVE && leftButtonDown) {
-        img.at<Vec3b>(Point(x, y)) = color;
+    else if(event == CV_EVENT_MOUSEMOVE && leftButtonDown){
+        img.at<Vec3b>(Point(x, y)) = white;
         points.emplace_back(x,y);
     }
     else if(event == CV_EVENT_LBUTTONUP)
