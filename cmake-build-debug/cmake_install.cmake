@@ -1,4 +1,4 @@
-# Install script for directory: /home/matheus/Área de Trabalho/8° Semestre/Processamento de Imagens e Visão Computacional/Trabalhos/Trabalho 1/Color-Classification
+# Install script for directory: /media/matheus/Dados/UFSC/Matérias/8° Semestre/Processamento de Imagens e Visão Computacional/Trabalhos/Trabalho 1/Color-Classification
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/matheus/Área de Trabalho/8° Semestre/Processamento de Imagens e Visão Computacional/Trabalhos/Trabalho 1/Color-Classification/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/media/matheus/Dados/UFSC/Matérias/8° Semestre/Processamento de Imagens e Visão Computacional/Trabalhos/Trabalho 1/Color-Classification/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

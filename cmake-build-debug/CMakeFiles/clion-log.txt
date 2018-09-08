@@ -1,6 +1,6 @@
-/home/matheus/Documentos/clion-2018.2/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" "/home/matheus/Área de Trabalho/8° Semestre/Processamento de Imagens e Visão Computacional/Trabalhos/Trabalho 1/Color-Classification"
--- The C compiler identification is GNU 5.4.0
--- The CXX compiler identification is GNU 5.4.0
+/home/matheus/Documentos/clion-2018.2/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" "/media/matheus/Dados/UFSC/Matérias/8° Semestre/Processamento de Imagens e Visão Computacional/Trabalhos/Trabalho 1/Color-Classification"
+-- The C compiler identification is GNU 7.3.0
+-- The CXX compiler identification is GNU 7.3.0
 -- Check for working C compiler: /usr/bin/cc
 -- Check for working C compiler: /usr/bin/cc -- works
 -- Detecting C compiler ABI info
@@ -16,4 +16,4 @@
 -- Found OpenCV: /usr/local (found version "3.4.1") 
 -- Configuring done
 -- Generating done
--- Build files have been written to: /home/matheus/Área de Trabalho/8° Semestre/Processamento de Imagens e Visão Computacional/Trabalhos/Trabalho 1/Color-Classification/cmake-build-debug
+-- Build files have been written to: /media/matheus/Dados/UFSC/Matérias/8° Semestre/Processamento de Imagens e Visão Computacional/Trabalhos/Trabalho 1/Color-Classification/cmake-build-debug

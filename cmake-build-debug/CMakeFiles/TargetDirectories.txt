@@ -1,3 +1,3 @@
-/home/matheus/Área de Trabalho/8° Semestre/Processamento de Imagens e Visão Computacional/Trabalhos/Trabalho 1/Color-Classification/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/home/matheus/Área de Trabalho/8° Semestre/Processamento de Imagens e Visão Computacional/Trabalhos/Trabalho 1/Color-Classification/cmake-build-debug/CMakeFiles/edit_cache.dir
-/home/matheus/Área de Trabalho/8° Semestre/Processamento de Imagens e Visão Computacional/Trabalhos/Trabalho 1/Color-Classification/cmake-build-debug/CMakeFiles/Trabalhos.dir
+/media/matheus/Dados/UFSC/Matérias/8° Semestre/Processamento de Imagens e Visão Computacional/Trabalhos/Trabalho 1/Color-Classification/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/media/matheus/Dados/UFSC/Matérias/8° Semestre/Processamento de Imagens e Visão Computacional/Trabalhos/Trabalho 1/Color-Classification/cmake-build-debug/CMakeFiles/edit_cache.dir
+/media/matheus/Dados/UFSC/Matérias/8° Semestre/Processamento de Imagens e Visão Computacional/Trabalhos/Trabalho 1/Color-Classification/cmake-build-debug/CMakeFiles/Trabalhos.dir
